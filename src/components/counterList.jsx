@@ -14,24 +14,20 @@ const CountersList = () => {
     setCounters(counters.filter(count => id !== count.id))
   }
   const handleIncrement = (id) => {
-     setCounters(counters.filter(counter => {
-       if (counter.id !== id) {
-        return counter
-       } else {
-         counter.value += 1
-         return counter
-       }
-     }))
+    const result = [
+      ...counters.slice(0, id),
+      {... counters[id], value: counters[id].value + 1},
+      ...counters.slice(id + 1),
+    ]
+    setCounters(result)
   }
   const handleDecrement = (id) => {
-    setCounters(counters.filter(counter => {
-      if (counter.id !== id || counter.value === 0) {
-       return counter
-      } else {
-        counter.value -= 1
-        return counter
-      }
-    }))
+    const result = [
+      ...counters.slice(0, id),
+      {... counters[id], value: counters[id].value - 1 },
+      ...counters.slice(id + 1),
+    ]
+    setCounters(result)
   }
   const handleReset = () => {
     setCounters(initialState)

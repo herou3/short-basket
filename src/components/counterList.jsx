@@ -14,19 +14,15 @@ const CountersList = () => {
     setCounters(counters.filter(count => id !== count.id))
   }
   const handleIncrement = (id) => {
-    const result = [
-      ...counters.slice(0, id),
-      {... counters[id], value: counters[id].value + 1},
-      ...counters.slice(id + 1),
-    ]
+    const result = counters.map((count, i) => {
+      return id == i ? { ...count, value: count.value + 1} : count
+    })
     setCounters(result)
   }
   const handleDecrement = (id) => {
-    const result = [
-      ...counters.slice(0, id),
-      {... counters[id], value: counters[id].value - 1 },
-      ...counters.slice(id + 1),
-    ]
+      const result = counters.map((count, i) => {
+        return id == i && count.value > 0 ? { ...count, value: count.value - 1} : count
+      })
     setCounters(result)
   }
   const handleReset = () => {
